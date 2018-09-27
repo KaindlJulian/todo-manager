@@ -62,10 +62,10 @@ function runWatchTodos() {
 // #endregion
 
 function main() {
-    // runWatchTodos(),
-    //runInsertTodo(6, 'New Task', 'much wow');
-    runListTodos();
-    // runDeleteTodo(6);
+    // runWatchTodos();
+    // runInsertTodo(6, 'New Task', 'much wow');
+    // runListTodos();
+    runDeleteTodo(1);
 }
 
 if (require.main === module) {

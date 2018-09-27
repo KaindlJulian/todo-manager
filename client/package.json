@@ -1,15 +1,17 @@
 {
-  "name": "todo-grpc",
-  "version": "1.0.0",
-  "description": "a simple todo manager using grpcs in a microservice structure",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Julian Kaindl",
-  "license": "MIT",
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@grpc/proto-loader": "^0.3.0",
-    "grpc": "^1.15.1",
+    "@material-ui/core": "^3.1.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
