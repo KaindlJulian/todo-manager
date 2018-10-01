@@ -2,8 +2,6 @@
 /**
  * @fileoverview
  * @enhanceable
- * @suppress {messageConventions} JS Compiler reports an error if a variable or
- *     field starts with 'MSG_' and isn't a translatable message.
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
@@ -59,7 +57,6 @@ proto.todo.Empty.prototype.toObject = function(opt_includeInstance) {
  *     http://goto/soy-param-migration
  * @param {!proto.todo.Empty} msg The msg instance to transform.
  * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
  */
 proto.todo.Empty.toObject = function(includeInstance, msg) {
   var f, obj = {
@@ -75,60 +72,11 @@ proto.todo.Empty.toObject = function(includeInstance, msg) {
 
 
 /**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.todo.Empty}
+ * Creates a deep clone of this proto. No data is shared with the original.
+ * @return {!proto.todo.Empty} The clone.
  */
-proto.todo.Empty.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.todo.Empty;
-  return proto.todo.Empty.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.todo.Empty} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.todo.Empty}
- */
-proto.todo.Empty.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.todo.Empty.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.todo.Empty.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.todo.Empty} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.todo.Empty.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
+proto.todo.Empty.prototype.cloneMessage = function() {
+  return /** @type {!proto.todo.Empty} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -175,13 +123,12 @@ proto.todo.Todo.prototype.toObject = function(opt_includeInstance) {
  *     http://goto/soy-param-migration
  * @param {!proto.todo.Todo} msg The msg instance to transform.
  * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
  */
 proto.todo.Todo.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    title: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    body: jspb.Message.getFieldWithDefault(msg, 3, "")
+    id: msg.getId(),
+    title: msg.getTitle(),
+    body: msg.getBody()
   };
 
   if (includeInstance) {
@@ -193,93 +140,11 @@ proto.todo.Todo.toObject = function(includeInstance, msg) {
 
 
 /**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.todo.Todo}
+ * Creates a deep clone of this proto. No data is shared with the original.
+ * @return {!proto.todo.Todo} The clone.
  */
-proto.todo.Todo.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.todo.Todo;
-  return proto.todo.Todo.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.todo.Todo} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.todo.Todo}
- */
-proto.todo.Todo.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setId(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setTitle(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setBody(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.todo.Todo.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.todo.Todo.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.todo.Todo} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.todo.Todo.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getId();
-  if (f !== 0) {
-    writer.writeInt32(
-      1,
-      f
-    );
-  }
-  f = message.getTitle();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-  f = message.getBody();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
+proto.todo.Todo.prototype.cloneMessage = function() {
+  return /** @type {!proto.todo.Todo} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -288,13 +153,13 @@ proto.todo.Todo.serializeBinaryToWriter = function(message, writer) {
  * @return {number}
  */
 proto.todo.Todo.prototype.getId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
 };
 
 
-/** @param {number} value */
+/** @param {number} value  */
 proto.todo.Todo.prototype.setId = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -303,13 +168,13 @@ proto.todo.Todo.prototype.setId = function(value) {
  * @return {string}
  */
 proto.todo.Todo.prototype.getTitle = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
 
-/** @param {string} value */
+/** @param {string} value  */
 proto.todo.Todo.prototype.setTitle = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -318,13 +183,13 @@ proto.todo.Todo.prototype.setTitle = function(value) {
  * @return {string}
  */
 proto.todo.Todo.prototype.getBody = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 3, ""));
 };
 
 
-/** @param {string} value */
+/** @param {string} value  */
 proto.todo.Todo.prototype.setBody = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -371,11 +236,10 @@ proto.todo.TodoIdRequest.prototype.toObject = function(opt_includeInstance) {
  *     http://goto/soy-param-migration
  * @param {!proto.todo.TodoIdRequest} msg The msg instance to transform.
  * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
  */
 proto.todo.TodoIdRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    id: msg.getId()
   };
 
   if (includeInstance) {
@@ -387,71 +251,11 @@ proto.todo.TodoIdRequest.toObject = function(includeInstance, msg) {
 
 
 /**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.todo.TodoIdRequest}
+ * Creates a deep clone of this proto. No data is shared with the original.
+ * @return {!proto.todo.TodoIdRequest} The clone.
  */
-proto.todo.TodoIdRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.todo.TodoIdRequest;
-  return proto.todo.TodoIdRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.todo.TodoIdRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.todo.TodoIdRequest}
- */
-proto.todo.TodoIdRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.todo.TodoIdRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.todo.TodoIdRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.todo.TodoIdRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.todo.TodoIdRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getId();
-  if (f !== 0) {
-    writer.writeInt32(
-      1,
-      f
-    );
-  }
+proto.todo.TodoIdRequest.prototype.cloneMessage = function() {
+  return /** @type {!proto.todo.TodoIdRequest} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -460,13 +264,13 @@ proto.todo.TodoIdRequest.serializeBinaryToWriter = function(message, writer) {
  * @return {number}
  */
 proto.todo.TodoIdRequest.prototype.getId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
 };
 
 
-/** @param {number} value */
+/** @param {number} value  */
 proto.todo.TodoIdRequest.prototype.setId = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -520,7 +324,6 @@ proto.todo.TodoList.prototype.toObject = function(opt_includeInstance) {
  *     http://goto/soy-param-migration
  * @param {!proto.todo.TodoList} msg The msg instance to transform.
  * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
  */
 proto.todo.TodoList.toObject = function(includeInstance, msg) {
   var f, obj = {
@@ -537,99 +340,29 @@ proto.todo.TodoList.toObject = function(includeInstance, msg) {
 
 
 /**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.todo.TodoList}
+ * Creates a deep clone of this proto. No data is shared with the original.
+ * @return {!proto.todo.TodoList} The clone.
  */
-proto.todo.TodoList.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.todo.TodoList;
-  return proto.todo.TodoList.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.todo.TodoList} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.todo.TodoList}
- */
-proto.todo.TodoList.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.todo.Todo;
-      reader.readMessage(value,proto.todo.Todo.deserializeBinaryFromReader);
-      msg.addTodos(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.todo.TodoList.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.todo.TodoList.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.todo.TodoList} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.todo.TodoList.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getTodosList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      1,
-      f,
-      proto.todo.Todo.serializeBinaryToWriter
-    );
-  }
+proto.todo.TodoList.prototype.cloneMessage = function() {
+  return /** @type {!proto.todo.TodoList} */ (jspb.Message.cloneMessage(this));
 };
 
 
 /**
  * repeated Todo todos = 1;
- * @return {!Array<!proto.todo.Todo>}
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.todo.Todo>}
  */
 proto.todo.TodoList.prototype.getTodosList = function() {
-  return /** @type{!Array<!proto.todo.Todo>} */ (
+  return /** @type{!Array.<!proto.todo.Todo>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.todo.Todo, 1));
 };
 
 
-/** @param {!Array<!proto.todo.Todo>} value */
+/** @param {Array.<!proto.todo.Todo>} value  */
 proto.todo.TodoList.prototype.setTodosList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.todo.Todo=} opt_value
- * @param {number=} opt_index
- * @return {!proto.todo.Todo}
- */
-proto.todo.TodoList.prototype.addTodos = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.todo.Todo, opt_index);
 };
 
 

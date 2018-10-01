@@ -1,4 +1,5 @@
-import TodoServiceClient from '../proto/todo_pb';
+// import {Todo} from '../proto/todo';
+const {TodoServiceClient} = require('../proto/todo_grpc_web_pb.js');
 
 const grpcUrl = 'http://localhost:8080';
 
