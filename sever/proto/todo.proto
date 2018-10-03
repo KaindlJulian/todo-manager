@@ -23,5 +23,4 @@ service TodoService {
     rpc ListTodos (Empty) returns (TodoList) {}
     rpc InsertTodo (Todo) returns (Empty) {}
     rpc DeleteTodo (TodoIdRequest) returns (Empty) {}
-    rpc WatchTodos (Empty) returns (stream Todo) {} 
 }

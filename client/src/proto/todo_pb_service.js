@@ -1,3 +1,4 @@
+/* eslint-disable */
 // package: todo
 // file: todo.proto
 

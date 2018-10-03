@@ -1,12 +1,11 @@
 var PROTO_PATH = __dirname + '/proto/todo.proto';
-var GRPC_URL = require(`${__dirname}/config/grpc.json`).url;
-var MONGO_URL = "mongodb://localhost:27017/todoDB";
+var grpcConfig = require('./config/grpc.js');
+var mongoConfig = require('./config/mongo.js');
 
 var grpc = require('grpc');
 var protoLoader = require('@grpc/proto-loader');
 var events = require('events');
 var MongoClient = require('mongodb').MongoClient
-var mongoOptions = require(`${__dirname}/config/mongo.json`).options;
 
 var collection
 
@@ -137,29 +136,29 @@ function initDb() {
 }
 
 if (require.main === module) {
-    MongoClient.connect(MONGO_URL, mongoOptions, (err, client) => {
+    MongoClient.connect(mongoConfig.url, mongoConfig.options, (err, client) => {
         if (err) {
             console.log(err);
 
             const todoServer = getServer();
 
             if (todoServer) {
-                todoServer.bind(GRPC_URL, grpc.ServerCredentials.createInsecure());
+                todoServer.bind(grpcConfig.url, grpc.ServerCredentials.createInsecure());
                 todoServer.start();
-                console.log(`listening on ${GRPC_URL}`);
+                console.log(`listening on ${grpcConfig.url}`);
             } else {
                 console.log(`invalid server: ${todoServer}`);
             }
         } else {
-            console.log(`connected to ${MONGO_URL}`);
+            console.log(`connected to ${mongoConfig.url}`);
 
             collection = client.db('todo').collection('todos');
             const todoServer = getServer();
 
             if (todoServer) {
-                todoServer.bind(GRPC_URL, grpc.ServerCredentials.createInsecure());
+                todoServer.bind(grpcConfig.url, grpc.ServerCredentials.createInsecure());
                 todoServer.start();
-                console.log(`listening on ${GRPC_URL}`);
+                console.log(`listening on ${grpcConfig.url}`);
             } else {
                 console.log(`invalid server: ${todoServer}`);
             }

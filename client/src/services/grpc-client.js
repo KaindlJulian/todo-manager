@@ -1,14 +1,23 @@
-// import {Todo} from '../proto/todo';
-const {TodoServiceClient} = require('../proto/todo_grpc_web_pb.js');
+import { grpc } from 'grpc-web-client';
+import { Empty } from '../proto/todo_pb.js';
+import { TodoService } from '../proto/todo_pb_service.js';
 
-const grpcUrl = 'http://localhost:8080';
+const grpcUrl = 'http://192.168.99.100:8080/';
 
 export default class GrpcClient {
-    constructor() {
-        this.client = new TodoServiceClient(grpcUrl);
-    }
 
-    printResponse(error, response) {
+    listTodos() {
+        const empty = new Empty();
+        grpc.unary(TodoService.ListTodos, {
+            request: empty,
+            host: grpcUrl,
+            onEnd: (res) => {
+                console.log(res);
+            }
+        })
+    } 
+
+    /*printResponse(error, response) {
         if (error)
             console.log('Error: ', error);
         else
@@ -41,14 +50,7 @@ export default class GrpcClient {
             this.printResponse(error, todo);
             return todo;
         });
-    }
-
-    watchTodos() {
-        var call = this.client.watchTodos({});
-        call.on('data', (todo) => {
-            console.log('On data: ', todo);
-        });
-    }
+    }*/
 
     get instance(){
         return this.client

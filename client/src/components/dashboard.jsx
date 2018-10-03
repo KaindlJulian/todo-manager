@@ -75,7 +75,6 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        console.log(grpcClient.instance);
         console.log(grpcClient.listTodos());
     }
 
@@ -98,7 +97,7 @@ class Dashboard extends React.Component {
                                 <Typography className={classes.heading}>Expansion Panel {value + 1}</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-
+                                details
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                     ))}
