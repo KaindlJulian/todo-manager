@@ -3,7 +3,7 @@ var PROTO_PATH = __dirname + '/proto/todo.proto';
 var grpc = require('grpc');
 var protoLoader = require('@grpc/proto-loader');
 
-var grpcUrl = 'localhost:50051';
+var grpcUrl = '172.23.0.3:50051';
 
 var packageDefinition = protoLoader.loadSync(
     PROTO_PATH,
@@ -64,8 +64,8 @@ function runWatchTodos() {
 function main() {
     // runWatchTodos();
     // runInsertTodo(6, 'New Task', 'much wow');
-    // runListTodos();
-    runDeleteTodo(1);
+    runListTodos();
+    // runDeleteTodo(1);
 }
 
 if (require.main === module) {

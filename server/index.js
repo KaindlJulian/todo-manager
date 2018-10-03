@@ -139,16 +139,6 @@ if (require.main === module) {
     MongoClient.connect(mongoConfig.url, mongoConfig.options, (err, client) => {
         if (err) {
             console.log(err);
-
-            const todoServer = getServer();
-
-            if (todoServer) {
-                todoServer.bind(grpcConfig.url, grpc.ServerCredentials.createInsecure());
-                todoServer.start();
-                console.log(`listening on ${grpcConfig.url}`);
-            } else {
-                console.log(`invalid server: ${todoServer}`);
-            }
         } else {
             console.log(`connected to ${mongoConfig.url}`);
 

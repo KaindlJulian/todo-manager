@@ -1,6 +1,6 @@
 
 module.exports = {
-    'url': 'mongodb://localhost:27017/todoDB',
+    'url': 'mongodb://mongo:27017',
     'options': {
         "useNewUrlParser": true,
         "reconnectTries": 30,

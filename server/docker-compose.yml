@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  server:
+    container_name: server
+    restart: always
+    build: .
+    ports:
+      - "50050"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017"
