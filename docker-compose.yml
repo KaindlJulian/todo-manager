@@ -3,7 +3,7 @@ services:
   server:
     container_name: server
     restart: always
-    build: .
+    build: ./server
     ports:
       - "50050"
     links:
@@ -14,6 +14,13 @@ services:
     container_name: mongo
     image: mongo
     volumes:
-      - ./data:/data/db
+      - ./server/data:/data/db
     ports:
       - "27017"
+  envoy:
+    container_name: envoy
+    restart: always
+    build: ./envoy
+    ports: 
+      - "8080"
+    

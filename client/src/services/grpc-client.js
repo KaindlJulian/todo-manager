@@ -1,9 +1,9 @@
 import { grpc } from 'grpc-web-client';
-import { Empty } from '../proto/todo_pb.js';
-import { TodoService } from '../proto/todo_pb_service.js';
+import { Empty } from '../proto-stubs/todo_pb.js';
+import { TodoService } from '../proto-stubs/todo_pb_service.js';
 
-const grpcUrl = 'http://192.168.99.100:8080/';
-
+const grpcUrl = '172.19.0.3:50051';
+    
 export default class GrpcClient {
 
     listTodos() {
