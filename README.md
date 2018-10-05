@@ -3,8 +3,8 @@
 > A simple full stack webapp
 
 ## Technologies
-![Alt text](./docs/system.svg)
-<img src="./docs/system.svg">
+![Alt text](./docs/system-struct.png)
+<img src="./docs/system-struct.png">
 
 - MongoDB
 - gRPC Node.js backend
