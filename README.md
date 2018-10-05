@@ -1,10 +1,9 @@
 # todo-manager
 
-> A simple full stack webapp
+> A simple full stack webapp with gRPC
 
 ## Technologies
 ![Alt text](./docs/system-struct.png)
-<img src="./docs/system-struct.png">
 
 - MongoDB
 - gRPC Node.js backend
@@ -12,8 +11,14 @@
 - Nginx
 - React
 
+## gRPC
 
-## Protobuff 
+- server is using the `grpc` npm package 
+- client is using the `grpc-web-client` npm package
+- protocol stubs generated using `protoc` with the `ts-protoc-gen` npm package
+
+
+### todo.proto 
 ```
 syntax = "proto3";
 
@@ -42,6 +47,7 @@ service TodoService {
     rpc DeleteTodo (TodoIdRequest) returns (Empty) {}
 }
 ```
+
 
 ## Getting started
 
