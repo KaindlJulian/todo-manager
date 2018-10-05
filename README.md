@@ -2,7 +2,6 @@
 
 > A simple full stack webapp with gRPC
 
-## Technologies
 ![Alt text](./docs/system-struct.png)
 
 - MongoDB
