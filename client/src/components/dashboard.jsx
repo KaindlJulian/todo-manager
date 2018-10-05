@@ -1,24 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import GrpcClient from '../services/grpc-client'
+import Navbar from './navbar';
+
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import CheckedIcon from '@material-ui/icons/CheckCircle';
+import CheckedIcon from '@material-ui/icons/Check';
+import Tooltip from '@material-ui/core/Tooltip';
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Navbar from './navbar';
-import green from '@material-ui/core/colors/green';
-import GrpcClient from '../services/grpc-client'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
 
-import Typography from '@material-ui/core/Typography';
-
+import TextField from '@material-ui/core/TextField';
 
 var grpcClient;
 
@@ -27,47 +31,36 @@ const styles = theme => ({
         width: '100%',
         backgroundColor: theme.palette.background.paper,
     },
+    checkButton: {
+        marginRight: theme.spacing.unit * 1.5
+    },
     fab: {
         position: 'absolute',
         bottom: theme.spacing.unit * 3,
         right: theme.spacing.unit * 3,
     },
-    checkedIcon: {
-        color: green[400],
-        padding: 0
+    form: {
+        overflow: 'hidden',
     },
-    heading: {
-        marginTop: "auto",
-        marginBottom: "auto",
-        fontSize: theme.typography.pxToRem(15),
-    },
-    secondaryHeading: {
-        fontSize: theme.typography.pxToRem(15),
-        color: theme.palette.text.secondary,
-    },
-    icon: {
-        verticalAlign: 'bottom',
-        height: 20,
-        width: 20,
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: '100%',
     },
 });
 
+function Transition(props) {
+    return <Slide direction="up" {...props} />;
+}
+
 class Dashboard extends React.Component {
 
-    check = value => () => {
-        const { checked } = this.state;
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
+    todos = [];
 
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        this.setState({
-            checked: newChecked,
-        });
+    state = {
+        open: false,
+        titleValue: '',
+        bodyValue: '',
     };
 
     componentWillMount() {
@@ -75,8 +68,57 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        console.log(grpcClient.listTodos());
+        this.getTodos()
     }
+
+    getTodos() {
+        grpcClient.listTodos().then((data) => {
+            this.todos = data.todosList;
+            const newState = Object.assign({}, this.state, {
+                todos: data.todoList
+            });
+            this.setState(newState);
+        });
+    }
+
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({
+            open: false,
+            titleValue: '',
+            bodyValue: '',
+        });
+    };
+
+    handleSubmit = () => {
+        if (this.state.titleValue) {
+            grpcClient.insertTodo(this.todos.length + 1, this.state.titleValue, this.state.bodyValue)
+                .then(() => {
+                    this.getTodos();
+                });
+
+            this.setState({
+                open: false,
+                titleValue: '',
+                bodyValue: '',
+            });
+        }
+    };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    handleDelete = id => () => {
+        grpcClient.deleteTodo(id).then(() => {
+            this.getTodos();
+        });
+    };
 
     render() {
         const { classes } = this.props;
@@ -85,27 +127,68 @@ class Dashboard extends React.Component {
                 <Navbar />
 
                 <List>
-                    {[0, 1, 2, 3].map(value => (
-                        <ExpansionPanel
-                            key={value}
+                    {this.todos.map(todo => (
+                        <ListItem
+                            key={todo.id}
                             role={undefined}
                         >
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <IconButton aria-label="Delete" className={classes.button}>
-                                    <CheckedIcon fontSize="large" className={classes.checkedIcon} />
-                                </IconButton>
-                                <Typography className={classes.heading}>Expansion Panel {value + 1}</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                details
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
+                            <ListItemText primary={todo.title} secondary={todo.body ? todo.body : '-'} />
+                            <ListItemSecondaryAction>
+                                <Tooltip title="Mark as done" placement="left">
+                                    <IconButton onClick={this.handleDelete(todo.id)} className={classes.checkButton} aria-label="Done">
+                                        <CheckedIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </ListItemSecondaryAction>
+                        </ListItem>
                     ))}
                 </List>
 
-                <Button variant="fab" className={classes.fab} color="secondary">
+                <Button variant="fab" className={classes.fab} onClick={this.handleClickOpen} color="secondary">
                     <AddIcon />
                 </Button>
+
+                <Dialog
+                    open={this.state.open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={this.handleClose}
+                >
+                    <DialogTitle id="alert-dialog-slide-title">
+                        Add a new Task
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+
+                        </DialogContentText>
+                        <form className={classes.form} autoComplete="off">
+                            <TextField
+                                className={classes.textField}
+                                label="Title"
+                                value={this.state.titleValue}
+                                onChange={this.handleChange('titleValue')}
+                                margin="normal"
+                            />
+                            <TextField
+                                className={classes.textField}
+                                label="Description"
+                                value={this.state.bodyValue}
+                                onChange={this.handleChange('bodyValue')}
+                                multiline
+                                rows="4"
+                                margin="normal"
+                            />
+                        </form>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose}>
+                            Cancel
+                        </Button>
+                        <Button variant="outlined" onClick={this.handleSubmit} color="primary">
+                            Ok
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         );
     }
@@ -116,39 +199,3 @@ Dashboard.propTypes = {
 };
 
 export default withStyles(styles)(Dashboard);
-
-/*
-
-                <ExpansionPanel defaultExpanded>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                        <div className={classes.column}>
-                            <Typography className={classes.heading}>Location</Typography>
-                        </div>
-                        <div className={classes.column}>
-                            <Typography className={classes.secondaryHeading}>Select trip destination</Typography>
-                        </div>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails className={classes.details}>
-                        <div className={classes.column} />
-                        <div className={classes.column}>
-                            <Chip label="Barbados" className={classes.chip} onDelete={() => { }} />
-                        </div>
-                        <div className={classNames(classes.column, classes.helper)}>
-                            <Typography variant="caption">
-                                Select your destination of choice
-                                <br />
-                                <a href="#sub-labels-and-columns" className={classes.link}>
-                                    Learn more
-                                </a>
-                            </Typography>
-                        </div>
-                    </ExpansionPanelDetails>
-                    <Divider />
-                    <ExpansionPanelActions>
-                        <Button size="small">Cancel</Button>
-                        <Button size="small" color="primary">
-                            Save
-                        </Button>
-                    </ExpansionPanelActions>
-                </ExpansionPanel>
-*/

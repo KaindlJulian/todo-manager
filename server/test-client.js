@@ -3,7 +3,7 @@ var PROTO_PATH = __dirname + '/proto/todo.proto';
 var grpc = require('grpc');
 var protoLoader = require('@grpc/proto-loader');
 
-var grpcUrl = '172.19.0.3:50051'; // docker inspect server -> "IPAddress": "x.x.x.x"
+var grpcUrl = '172.18.0.4:50051'; // docker inspect server -> "IPAddress": "x.x.x.x"
 
 var packageDefinition = protoLoader.loadSync(
     PROTO_PATH,

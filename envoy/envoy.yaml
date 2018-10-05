@@ -1,13 +1,13 @@
 admin:
   access_log_path: /tmp/admin_access.log
   address:
-    socket_address: { protocol: TCP, address: 0.0.0.0, port_value: 9901 }
+    socket_address: { address: 0.0.0.0, port_value: 9200 }
 
 static_resources:
   listeners:
   - name: listener_0
     address:
-      socket_address: { address: 0.0.0.0, port_value: 8080 }
+      socket_address: { address: 0.0.0.0, port_value: 9211 }
     filter_chains:
     - filters:
       - name: envoy.http_connection_manager
@@ -35,8 +35,8 @@ static_resources:
           - name: envoy.router
   clusters:
   - name: todo.TodoService
-    connect_timeout: 15s
+    connect_timeout: 3s
     type: logical_dns
     http2_protocol_options: {}
     lb_policy: round_robin
-    hosts: [{ socket_address: { address: 0.0.0.0, port_value: 50051 }}]
+    hosts: [{ socket_address: { address: server, port_value: 50051 }}]
