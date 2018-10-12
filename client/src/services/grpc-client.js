@@ -2,8 +2,7 @@ import { grpc } from 'grpc-web-client';
 import { Empty, TodoIdRequest, Todo } from '../proto-stubs/todo_pb.js';
 import { TodoService } from '../proto-stubs/todo_pb_service.js';
 
-const url = 'http://172.29.0.4:9211';
-
+const url = 'http://172.20.0.4:9211';
 
 export default class GrpcClient {
 
